@@ -1,7 +1,7 @@
  
 import asyncHandler from "express-async-handler";
 import categoryModel from "../models/navbarSchema.js";
-import { addCategoryValidationSchema } from "../validations/catValidation.js";
+import { addCategoryValidationSchema } from "../validations/navValidation.js";
 
 const categoriesArray = [
     {
@@ -598,6 +598,7 @@ const categoriesArray = [
 ];
 
 // BUlk categoryAdd
+
 export const addCategories = asyncHandler(async (req, res) => {
     console.log('incoming data',req.body);
     
@@ -623,16 +624,20 @@ export const getCategories = asyncHandler(async (req, res) => {
 
 //! Add single category
 export const addSingleCategory = asyncHandler(async (req, res) => {
- const joiresp = addCategoryValidationSchema.validate(req.body)
- console.log('repsonse form JOi valid: ',joiresp);
+//  const joiresp = addCategoryValidationSchema.validate(req.body)
  
     try {
-      console.log('request body: ',req.body);
+      console.log('request body: ',req.body);      
       
-        const category = await categoryModel.create(req.body);
-        res.status(200).json(category);
+ 
+    const FindSection = await categoryModel.findOne({section:'Members'}).then(result => result?.subsections?.find(subsection => subsection.title === 'Corporates & MNCs'))
+    console.log('FindSection: ',FindSection);
+ 
+        res.status(200).json('success');
     } catch (error) {
         res.status(400);
         throw new Error(error.message);
     }
 })
+
+ 

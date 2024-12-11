@@ -15,7 +15,7 @@ const CategorySchema = new mongoose.Schema({
 // Subsection Schema
 const SubsectionSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  categories: [CategorySchema], // Categories for each subsection
+  categories: [CategorySchema] , // Categories for each subsection
 });
 
 // Section Schema
