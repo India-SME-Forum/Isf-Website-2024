@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { navbarFetch } from "../services/navbarFetch";
 
 
-const categoriesArray = await navbarFetch();
+const categoriesArray = await navbarFetch() || [] 
 
  
 
