@@ -646,14 +646,22 @@ export const addSingleCategory = asyncHandler(async (req, res,next) => {
 //! Add new subsection to section
 export const addNewSubsection = asyncHandler(async (req, res) => {
   try {
-    const { section, subsection,categories } = req.body;
+    const { section, subsectionTitle,categories } = req.body;
     const FindSection = await categoryModel
       .findOne({ section })
       .then((data) => {
-        data.subsections.push(subsection); //!pushing new subsection PENDING
-        // data.save(); //saving data to db
+        if(data.subsections.find((element)=>element.title === subsectionTitle)){
+          console.log('Subsection already exists: ', subsectionTitle);
+          
+          return data
+        }        
+
+       data?.subsections.push({title:subsectionTitle,categories});
+       //!pushing new subsection PENDING
+        data.save(); //saving data to db
         return data;
       });
+console.log('findSection',FindSection);
 
     res.status(200).json("success");
   } catch (error) {
