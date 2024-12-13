@@ -1,6 +1,10 @@
 import asyncHandler from "express-async-handler";
 import categoryModel from "../models/navbarSchema.js";
-import { addCategoryValidationSchema } from "../validations/navValidation.js";
+import {
+  addCategoryValidationSchema,
+  subSectionValidationSchema,
+} from "../validations/navValidation.js";
+import Joi from "joi";
 
 const categoriesArray = [
   {
@@ -622,7 +626,7 @@ export const getCategories = asyncHandler(async (req, res) => {
 });
 
 //! Add New single category
-export const addSingleCategory = asyncHandler(async (req, res,next) => {
+export const addSingleCategory = asyncHandler(async (req, res, next) => {
   const joiresp = addCategoryValidationSchema.validate(req.body);
   console.log("joi response: ", joiresp);
   const { section, subsectionTitle, categories } = req.body;
@@ -632,40 +636,85 @@ export const addSingleCategory = asyncHandler(async (req, res,next) => {
       .findOne({ section })
       .then((data) => {
         data.subsections
-          .find((element) => element.title === subsectionTitle) 
+          .find((element) => element.title === subsectionTitle)
           .categories.push(categories);
-        // data.save();                  //!saving data to db
+        data.save(); //!saving data to db
         return data;
-      })
-      console.log("FindSection: ", FindSection);
-    res.status(200).json("success");
+      });
+    console.log("FindSection: ", FindSection);
+    res.status(200).json({
+      message: "Category added successfully",
+      data: FindSection,
+    });
   } catch (error) {
-   next(error)
+    next(error);
   }
 });
 //! Add new subsection to section
 export const addNewSubsection = asyncHandler(async (req, res) => {
   try {
-    const { section, subsectionTitle,categories } = req.body;
+    const joiresp = subSectionValidationSchema.validate(req.body);
+    console.log("JOI REP : ", joiresp);
+
+    const { section, subsectionTitle, categories } = req.body;
     const FindSection = await categoryModel
       .findOne({ section })
       .then((data) => {
-        if(data.subsections.find((element)=>element.title === subsectionTitle)){
-          console.log('Subsection already exists: ', subsectionTitle);
-          
-          return data
-        }        
+        if (
+          data.subsections.find((element) => element.title === subsectionTitle)
+        ) {
+          console.log("Subsection already exists: ", subsectionTitle);
 
-       data?.subsections.push({title:subsectionTitle,categories});
-       //!pushing new subsection PENDING
+          return data;
+        }
+
+        data?.subsections.push({ title: subsectionTitle, categories });
+        //!pushing new subsection PENDING
         data.save(); //saving data to db
         return data;
+      })
+      .catch((e) => {
+        res.status(400);
+        res.json({
+          status: 400,
+          message: "section not found",
+        });
+        e.message = "section not found";
+        return e;
       });
-console.log('findSection',FindSection);
+    console.log("Section added Succesfully", FindSection);
 
-    res.status(200).json("success");
+    res.status(200).json({
+      message: "Section added Succesfully",
+      data: FindSection,
+    });
   } catch (error) {
     res.status(400);
     throw new Error(error.message);
+  }
+});
+
+//! Delete single category IN progress
+export const deleteSingleCategory = asyncHandler(async (req, res) => {
+  joiresp = addCategoryValidationSchema.validate(req.body);
+  console.log("joi response: ", joiresp);
+  const { section, subsectionTitle, categories } = req.body;
+  try {
+    const findAndDeleteCategory = await categoryModel
+      .findOne({ section })
+      .then((data) => {
+        console.log("data:", data);
+        data.subsections
+          .find((element) => element.title === subsectionTitle).categories.find((element) => element.category === categories.category) 
+        // data.save();                  //!saving data to db
+        return data;
+      });
+    console.log("FindSection: ", findAndDeleteCategory);
+    res.status(200).json({
+      message: "Category added successfully",
+      data: findAndDeleteCategory,
+    });
+  } catch (error) {
+    next(error);
   }
 });

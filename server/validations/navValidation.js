@@ -14,3 +14,8 @@ export const addCategoryValidationSchema = Joi.object({
       ).optional(),
     }).required(),
   });
+
+  export const subSectionValidationSchema = Joi.object({
+    section:Joi.string().required(),
+    subsectionTitle: Joi.string().required(),
+  })

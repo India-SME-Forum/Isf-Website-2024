@@ -6,4 +6,5 @@ catRouter.post("/create", addCategories); // Bulk categoryAdd
 catRouter.get("/fetch", getCategories); // Fetch all categories
 catRouter.post("/createsingle", addSingleCategory); //Add single Category
 catRouter.post("/addnewsubsection", addNewSubsection); // Add subSection
+catRouter.delete('/deletesinglecategory',addSingleCategory) //delete single category
 export default catRouter;
