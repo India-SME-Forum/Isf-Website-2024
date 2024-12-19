@@ -2,11 +2,12 @@ import asyncHandler from "express-async-handler";
 import categoryModel from "../models/navbarSchema.js";
 import {
   addCategoryValidationSchema,
+  subCategoryValidationSchema,
   subSectionValidationSchema,
 } from "../validations/navValidation.js";
 import Joi from "joi";
 
-// const categoriesArray = [
+//? const categoriesArray = [
 //   {
 //     section: "About Us",
 //     subsections: [
@@ -144,6 +145,12 @@ import Joi from "joi";
 //           {
 //             category: "Women Entrepreneurs - Shakti",
 //             url: "/initiatives/shakti",
+subcategories: [
+  {
+    category: "subcategoryNEW3",
+    url: "/newsub/category/url",
+  },
+];
 //           },
 //           {
 //             category: "Entrepreneur Mentoring Program",
@@ -600,7 +607,7 @@ import Joi from "joi";
 //   },
 // ];
 
-// Bulk categoryAdd
+//!Bulk categoryAdd
 
 export const addCategories = asyncHandler(async (req, res) => {
   console.log("incoming data", req.body);
@@ -613,8 +620,7 @@ export const addCategories = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
-
-// Fetch all categories
+//! Fetch all categories
 export const getCategories = asyncHandler(async (req, res) => {
   try {
     const category = await categoryModel.find();
@@ -624,7 +630,6 @@ export const getCategories = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
-
 //! Add New single category
 export const addSingleCategory = asyncHandler(async (req, res, next) => {
   const joiresp = addCategoryValidationSchema.validate(req.body);
@@ -680,7 +685,7 @@ export const addNewSubsection = asyncHandler(async (req, res) => {
           message: "section not found",
         });
         e.message = "section not found";
-        return e;
+        next(e);
       });
     console.log("Section added Succesfully", FindSection);
 
@@ -693,58 +698,180 @@ export const addNewSubsection = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
+// ! Create Subcategory in existing category
+export const createSubCategory = asyncHandler(async (req, res, next) => {
+  try {
+    const { error } = subCategoryValidationSchema.validate(req.body);
+    if (error) {
+      throw error;
+    }
 
-//! Delete single category IN progress
+    const findSubCategory = await categoryModel.findOne({
+      section: req.body.section,
+    });
+
+    if (!findSubCategory) {
+      res.status(400);
+      res.json({
+        status: 400,
+        message: "section not found",
+      });
+    }
+    // console.log("findSubCategory: ", findSubCategory);
+
+    const subsection = findSubCategory.subsections.find(
+      (element) => element.title === req.body.subsectionTitle
+    );
+
+    if (!subsection) {
+      res.status(400).json({
+        message: "Subsection not found",
+      });
+    }
+    // console.log("subsection", subsection);
+    //!find category
+    const category = subsection.categories.find(
+      (cat) => cat.category === req.body.categories.category
+    );
+
+    if (!category) {
+      res.status(400).json({
+        message: "Category not found",
+      });
+    }
+    // Check if subcategory already exists
+    if (
+      category.subcategories.find(
+        (sc) => sc.category === req.body.categories.subcategories.category
+      )
+    ) {
+      console.log("Subcategory already exists");
+      throw new Error("Subcategory already exists");
+    }
+    // Pushh subcategories
+    category.subcategories.push(req.body.categories.subcategories);
+
+    await findSubCategory.save();
+
+    console.log("here FindSubCategory: ", findSubCategory);
+    res.status(200).json({
+      message: "Subcategory added successfully",
+      data: findSubCategory ? findSubCategory : "no data",
+    });
+  } catch (e) {
+    e.statusCode = 400;
+    next(e);
+  }
+});
+//!Delete single category
 export const deleteSingleCategory = asyncHandler(async (req, res, next) => {
   try {
     const { error } = addCategoryValidationSchema.validate(req.body);
     if (error) {
-      return res
+      res
         .status(400)
         .json({ message: "Validation Error", details: error.details });
     }
-    const { section, subsectionTitle, categories } = req.body;
-    //!  check sectionData
-    const sectionData = await categoryModel.findOne({ section });
-    if (!sectionData) {
-      return res
-        .status(404)
-        .json({ message: `Section '${section}' not found.` });
-    }
-    //! check subsectionData
-    const subsectionData = sectionData.subsections.find(
-      (sub) => sub.title === subsectionTitle
-    );
-    if (!subsectionData) {
-      return res 
-        .status(404)
-        .json({
-          message: `Subsection '${subsectionTitle}' not found in section '${section}'.`,
-        });
-    }
 
-    // Find the category within the subsection
-    const categoryIndex = subsectionData.categories.findIndex(
-      (cat) => cat.category === categories.category
-    );
-    if (categoryIndex === -1) {
-      return res.status(404).json({ message: `Category '${categories.category}' not found in subsection '${subsectionData}'.` });
-    }
+    const deleted = await categoryModel
+      .updateOne(
+        {
+          section: req.body.section,
+          "subsections.title": req.body.subsectionTitle,
+          "subsections.categories.category": req.body.categories.category,
+        },
+        {
+          $pull: {
+            "subsections.$.categories": {
+              category: req.body.categories.category,
+            },
+          },
+        }
+      )
+      .then(data)
+      .catch((e) => {
+        e.message = "category not found";
+        next(e);
+      });
 
-    // Remove the category
-    subsectionData.categories.splice(categoryIndex, 1);
-
-    // Save the updated document
-    // await sectionData.save();
-    console.log("sectionData: ", subsectionData);
-    
-   
-
+    console.log("deleted:", deleted);
     res.status(200).json({
       message: "Category deleted successfully",
-      data: subsectionData,
+      data: deleted.modifiedCount,
     });
-  } catch (error) {
+  } catch (e) {
+    next(e);
+  }
+});
+//! delete subsection
+export const deleteSubsection = asyncHandler(async (req, res, next) => {
+  const { error } = subSectionValidationSchema.validate(req.body);
+  if (error) {
     next(error);
   }
+  const subsectionDeleted = await categoryModel
+    .updateOne(
+      {
+        section: req.body.section,
+        "subsections.title": req.body.subsectionTitle,
+      },
+      { $pull: { subsections: { title: req.body.subsectionTitle } } }
+    )
+    .then((data) => data)
+    .catch((e) => {
+      e.message = "subsection not found";
+    });
+  res.status(200).json({
+    message: "Subsection deleted successfully",
+    data: subsectionDeleted.modifiedCount,
+  });
+});
+//! delete subcategory
+export const deleteSubcategory = asyncHandler(async (req, res, next) => {
+ 
+  try{
+    const { error } = subCategoryValidationSchema.validate(req.body);
+    if (error) {
+      console.log("validation error: ", error.message);
+      
+      error.statusCode=401
+      throw new Error(error)
+    }
+    const subcategoryDeleted = await categoryModel
+    .findOneAndUpdate(
+      {
+        section: req.body.section,
+        "subsections.title": req.body.subsectionTitle,
+        "subsections.categories.category": req.body.categories.category,
+      },
+      {
+        $pull: {
+          "subsections.$[subsection].categories.$[category].subcategories": {
+            category: req.body.categories.subcategories.category, // Match the subcategory to delete
+          },
+        },
+      },
+      {
+        arrayFilters: [
+          { "subsection.title": req.body.subsectionTitle }, // Filter for the correct subsection
+          { "category.category": req.body.categories.category }, // Filter for the correct category
+        ],
+        new: true, // Return the updated document
+      }
+    )
+    .then((data) => data);
+  console.log({
+    message: "Subcategory deleted successfully",
+    
+  })
+  res.status(200).json({
+    message: "Subcategory deleted successfully",
+    
+  });
+  }
+  catch(e){
+    e.statusCode=400
+    next(e)
+  }
+
 });

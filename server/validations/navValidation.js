@@ -1,21 +1,34 @@
 import Joi from "joi";
 
 export const addCategoryValidationSchema = Joi.object({
-    section: Joi.string().required(),
-    subsectionTitle: Joi.string().required(), // Title of the subsection to add to
-    categories: Joi.object({
-      category: Joi.string().required(),
-      url: Joi.string().optional(),
-      subcategories: Joi.array().items(
+  section: Joi.string().required(),
+  subsectionTitle: Joi.string().required(), // Title of the subsection to add to
+  categories: Joi.object({
+    category: Joi.string().required(),
+    url: Joi.string().optional(),
+    subcategories: Joi.array()
+      .items(
         Joi.object({
           category: Joi.string().required(),
           url: Joi.string().optional(),
         })
-      ).optional(),
-    }).required(),
-  });
+      )
+      .optional(),
+  }).required(),
+});
 
-  export const subSectionValidationSchema = Joi.object({
-    section:Joi.string().required(),
-    subsectionTitle: Joi.string().required(),
-  })
+export const subSectionValidationSchema = Joi.object({
+  section: Joi.string().required(),
+  subsectionTitle: Joi.string().required(),
+});
+export const subCategoryValidationSchema = Joi.object({
+  section: Joi.string().required(),
+  subsectionTitle: Joi.string().required(),
+  categories: Joi.object({
+    category: Joi.string().required(),
+    subcategories: Joi.object({ 
+      category: Joi.string().required(),
+      url: Joi.string().required(),
+    }),
+  }),
+});
