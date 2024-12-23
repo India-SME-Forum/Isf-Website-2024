@@ -875,3 +875,4 @@ export const deleteSubcategory = asyncHandler(async (req, res, next) => {
   }
 
 });
+
