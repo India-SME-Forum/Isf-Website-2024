@@ -4,3 +4,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    12.5% {
+      transform: translateX(-100%);
+    }
+    25% {
+      transform: translateX(-100%);
+    }
+    37.5% {
+      transform: translateX(-200%);
+    }
+    50% {
+      transform: translateX(-200%);
+    }
+    62.5% {
+      transform: translateX(-300%);
+    }
+    75% {
+      transform: translateX(-300%);
+    }
+    87.5% {
+      transform: translateX(-400%);
+    }
+    100% {
+      transform: translateX(-400%);
+    }
+  }
+  
+  .animate-scroll {
+    animation-delay:  5s initial;
+    animation: scroll 20s linear infinite; /* Adjust the speed to your preference */
+   /* Container width needs to be twice the original to accommodate duplicated content */
+  }
+  
+  .animate-scroll:hover{
+    
+    animation-play-state: paused ;
+  }

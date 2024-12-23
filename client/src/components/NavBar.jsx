@@ -3,9 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { navbarFetch } from "../services/navbarFetch";
 
 
-const categoriesArray = await navbarFetch() || [] 
-
- 
+const categoriesArray = await navbarFetch() || []
 
 const Navbar = () => {
 
@@ -28,7 +26,7 @@ const Navbar = () => {
     return categories?.map((category, idx) => {
      
       
-      if (typeof category === "string") {
+      if (typeof category === "string") {    
         return (
           
           <li className="hover:bg-accent rounded-lg" key={idx}>
@@ -44,7 +42,7 @@ const Navbar = () => {
           >
             <a href={category?.url}>{category?.category}</a>
             <ul
-              className="absolute left-0 top-full opacity-0 invisible 
+              className="absolute ml-[190px]   opacity-0 invisible 
                            group-hover/category:opacity-100 group-hover/category:visible 
                            transition-all duration-300 
                            bg-base-100 rounded-box p-2 shadow-lg z-10"
@@ -64,8 +62,7 @@ const Navbar = () => {
   return (
     <div
       ref={navRef}
-      className="navbar  z-50 2xl:px-40 2xl:py-2 p-0 bg-base-100 shadow-xl"
-    >
+      className="navbar z-50 2xl:px-40 2xl:py-2 p-0 bg-base-100 shadow-xl">
       <div className="navbar-start  z-50">
         <div className="dropdown z-50">
           <label
@@ -113,7 +110,6 @@ const Navbar = () => {
             </ul>
           )}
         </div>
-
         <a className="cursor-pointer min-h-8 h-full duration-200 transition-all">
           <img
             src="/isf_new_logo_2024.jpg"
@@ -124,15 +120,15 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-center h-full hidden lg:flex">
-        <ul className="menu menu-horizontal h-full px-1">
+        <ul className="menu menu-horizontal  h-full px-1">
           {categoriesArray?.map((section, index) => (
             <li
               key={index}
-              className="group relative mx-[2px] my-[5px] hover:border-b-[3px] hover:bg-transparent hover:bg-cyan-200 border-cyan-400 bg-cyan-100"
+              className="group relative h-full mx-[2px] my-[5px] "
             >
               <a
                 href="#"
-                className="transition-all  duration-100 rounded-none font-medium"
+                className="transition-all border-b-4 border-transparent hover:bg-cyan-300 hover:border-b-4 hover:border-cyan-700  duration-100 rounded-none font-medium"
               >
                 {section?.section}
               </a>

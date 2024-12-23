@@ -5,14 +5,14 @@ const OurSupporters = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const partners = [
-    "4.jpg",
-    "5.jpg",
-    "1.jpg",
-    "2.jpg",
-    "3.jpg",
-    "4.jpg",
-    "5.jpg",
-    "6.jpg",
+    {url:'',src:"4.jpg"},
+    {url:'',src:"5.jpg"},
+    {url:'',src:"1.jpg"},
+    {url:'',src:"2.jpg"},
+    {url:'',src:"3.jpg"},
+    {url:'',src:"4.jpg"},
+    {url:'',src:"5.jpg"},
+    {url:'',src:"6.jpg"},
   ];
 
   return (
@@ -30,16 +30,20 @@ const OurSupporters = () => {
             }`}
           >
             <img
-              src={partner}
+              src={partner.src}
               alt={`Partner ${index}`}
               className=" md:w-[60%] 2xl:w-[50%] rounded-full object-contain cursor-pointer duration-300 transition-all z-20"
             />
+            
             <h2 className=" md:w-[50%] text-center text-wrap font-semibold ">
               Name
             </h2>
+            <div className="company-logo flex ">
+              <img className="size-" src={partner.src}></img>
             <h1 className=" md:w-[50%] text-center text-wrap font-semibold ">
               Company name
             </h1>
+            </div>
             <p>Designation</p>
           </div>
         ))}

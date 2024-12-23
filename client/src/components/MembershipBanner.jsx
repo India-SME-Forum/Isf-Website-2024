@@ -16,9 +16,9 @@ const MembershipBanner = () => {
       description:
         "From emerging startups to established businesses, explore the wide range of advantages and plans tailored to your needs.",
       icon: <User className="w-8 h-8" />,
-      bgColor: "bg-slate-200",
-      textColor: "text-gray-700",
-      hoverBg: "hover:bg-slate-300",
+      bgtColor: "text-gray-700",
+      hovColor: "bg-slate-200",
+      texerBg: "hover:bg-slate-300",
     },
     {
       title: "Member Directory",

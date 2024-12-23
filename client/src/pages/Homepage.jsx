@@ -9,6 +9,7 @@ import SocialMediaBanner from "../components/Socials";
 import Footer from "../components/Footer";
 import MembershipBenefits from "../components/Memberbenefits";
 import OurSupporters from "../components/OurSupporters";
+import MemberCarousel from "../components/MemberCarousel";
 
 const Homepage = () => {
   return (
@@ -17,7 +18,9 @@ const Homepage = () => {
       <Hero />
       <MembershipBanner />
       <MembershipStats />
-      <OurSupporters/>
+      {/* <OurSupporters/>
+       */}
+       <MemberCarousel/>
       <NewsXblogs />
       <PartnerCarousel />
       <MembershipBenefits />

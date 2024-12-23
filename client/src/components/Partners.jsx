@@ -5,16 +5,31 @@ const PartnerCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const partners = [
-    "rb_1255.png",
-    "v-letter-gradient-colorful-vector-logo.png",
-    "pngwing.com.png",
-    "pngegg.png",
-    "rb_1255.png",
-    "rb_1255.png",
-    "v-letter-gradient-colorful-vector-logo.png",
-    "pngwing.com.png",
-    "pngegg.png",
-    "isf_new_logo_2024.jpg",
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+    "4.jpg",
+    "5.jpg",
+    "6.jpg",
+    "7.jpg",
+    "8.jpg",
+    "9.jpg",
+    "10.jpg",
+    "11.jpg",
+    "12.jpg",
+    "13.jpg",
+    "14.jpg",
+    "15.jpg",
+    "16.jpg",
+    "17.jpg",
+    "18.jpg",
+    "19.jpg",
+    "20.jpg",
+    "21.jpg",
+    "22.jpg",
+    "23.jpg",
+    "24.jpg",
+    "25.jpg",
   ];
 
   const handlePrev = () => {
@@ -41,7 +56,7 @@ const PartnerCarousel = () => {
             }`}
           >
             <img
-              src={partner}
+              src={`partners/${partner}`}
               alt={`Partner ${index}`}
               className="w-[50%] object-scale-down cursor-pointer hover:scale-105 duration-300 transition-all z-20"
             />
