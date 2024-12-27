@@ -29,12 +29,12 @@ const CarouselScroll = ({ banners, autoScrollInterval = 5000 }) => {
   return (
     <div className="relative w-full">
       {/* Main Carousel */}
-      <div className="carousel md:h-[400px] 2xl:px-20  w-full  ">
+      <div className="carousel  md:h-[400px] duration-300 w-full  ">
         {banners.map((banner, index) => (
           <div
             key={index}
             id={`slide${index}`}
-            className={`carousel-item relative w-full transition-opacity duration-500 ${
+            className={`carousel-item  relative w-full duration-500 ${
               currentSlide === index ? 'block' : 'hidden'
             }`}
             onMouseEnter={() => setIsAutoScrolling(false)}

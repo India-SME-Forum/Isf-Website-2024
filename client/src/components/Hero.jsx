@@ -30,18 +30,18 @@ const Hero = () => {
         <CarouselScroll banners={bannerImg} />
 
         {/* banner content */}
-        <div className="bg-sky-400  z-0 glass banner-content sm:w-[90%] ">
+        <div className="bg-sky-400 md:w-[65%] z-0 glass banner-content sm:w-[90%] ">
           <div className="   w-full h-full flex flex-col items-center justify-center">
             <div>
-              <h1 className="  text-4xl font-inter text-center ">
+              <h1 className=" text-xl md:text-2xl 2xl:text-4xl font-inter text-center ">
                 Welcome To India's Largest
                 <br />
                 Non Profit Organisation
                 <br /> For MSME
               </h1>
             </div>
-            <div className="duration-200 transition-all  rounded-md mt-5">
-              <p className="btn btn-outline btn-md   hover:scale-105  backdrop-blur-sm shadow-xl  ">
+            <div className="duration-200 transition-all  mb-5 2xl:mb-10 rounded-md mt-5">
+              <p className="btn btn-outline btn-xs md:btn-md 2xl:btn-md backdrop-blur-sm shadow-xl  ">
                 Msme Support
               </p>
             </div>

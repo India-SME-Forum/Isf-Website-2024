@@ -17,18 +17,18 @@ const SocialMediaBanner = () => {
   ];
 
   return (
-    <div className="bg-gray-800 z-30  py-4 px-6 rounded-lg shadow-md">
+    <div className="bg-gray-800 z-30  py-4 px-6  shadow-md">
       <h2 className="text-2xl text-base-300 text-center  mb-6">
         Connect on Social Media
       </h2>
-      <div className="flex justify-center space-x-4">
+      <div className="flex justify-center space-x-2">
         {socialMediaLinks.map((item, index) => (
           <a
             key={index}
             href={item.link}
-            className={`text-4xl ${item.color} hover:scale-110 transition-transform`}
+            className={`  text-xl 2xl:text-4xl ${item.color} hover:scale-110 transition-transform`}
           >
-            <item.icon className="w-12 z-20 mx-5 h-12" />
+            <item.icon className="2xl:w-12 md:w-8 md:h-8 w-6 h-6 z-20 mx-5 2xl:h-12" />
           </a>
         ))}
       </div>

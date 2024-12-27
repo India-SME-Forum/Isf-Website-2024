@@ -1,323 +1,376 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const MemberCard = ({ name, company, designation }) => (
-  <div className="card w-96 bg-base-100 shadow-xl mx-2 flex-shrink-0">
+const MemberCard = ({ name, company, designation, src, logo }) => (
+  <div className="card w-44 md:w-64 2xl:w-72 bg-base-100 shadow-2xl mx-2 flex-shrink-0">
     <figure className="px-10 pt-10">
-      <img 
-        src="/api/placeholder/200/200" 
+      <img
+        src={`supportersImg/${logo}`}
+        loading="lazy"
         alt={`${company} logo`}
-        className="rounded-xl w-32 h-32 object-cover"
+        className="rounded-xl w-16 h-16 object-fit"
       />
     </figure>
     <div className="card-body items-center text-center">
+      <img
+        loading="lazy"
+        src={`supportersImg/${src}`}
+        alt={`${company} logo`}
+        className="rounded-xl w-32 h-32 object-cover"
+      />
       <h2 className="card-title text-xl font-bold">{name}</h2>
       <p className="text-lg font-semibold text-gray-700">{company}</p>
       <p className="text-sm text-gray-600">{designation}</p>
     </div>
-      </div>
+  </div>
 );
 
 const MemberCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const members =[
+  const members = [
     {
-        "name": "Sreeni Tripuraneni",
-        "company": "4G Identity Solutions Pvt Ltd",
-        "designation": "Chairman & CEO",
-        "src": ""
+      name: "Sreeni Tripuraneni",
+      company: "4G Identity Solutions Pvt Ltd",
+      designation: "Chairman & CEO",
+      src: "4G IDENTITY SOLUTIONS PVT LTD.jpg",
+      logo: "4G IDENTITY SOLUTIONS PVT LTD-logo.jpg",
     },
     {
-        "name": "Nitin Tiwari",
-        "company": "ACME UNIVERSAL SAFEZONE 9 PVT LTD",
-        "designation": "MD",
-        "src": ""
+      name: "Nitin Tiwari",
+      company: "ACME UNIVERSAL SAFEZONE 9 PVT LTD",
+      designation: "MD",
+      src: "ACME UNIVERSAL SAFEZONE 9 PVT LTD.jpg",
+      logo: "ACME UNIVERSAL SAFEZONE 9 PVT LTD-logo.jpg",
     },
     {
-        "name": "Bhavan Vora",
-        "company": "Advance Syntex Pvt Ltd",
-        "designation": "Director",
-        "src": ""
+      name: "Bhavan Vora",
+      company: "Advance Syntex Pvt Ltd",
+      designation: "Director",
+      src: "ADVANCE SYNTEX PVT LTD.jpg",
+      logo: "ADVANCE SYNTEX PVT LTD-logo.jpg",
     },
     {
-        "name": "Anil Vyas",
-        "company": "Alice Pharmaceuticals Private Limited",
-        "designation": "Director",
-        "src": ""
+      name: "Anil Vyas",
+      company: "Alice Pharmaceuticals Private Limited",
+      designation: "Director",
+      src: "ALICE PHARMACEUTICALS PRIVATE LIMITED.jpg",
+      logo: "ALICE PHARMACEUTICALS PRIVATE LIMITED-logo.jpg",
     },
     {
-        "name": "Rajiv Arora",
-        "company": "Amrapali Jewels Pvt Ltd",
-        "designation": "Director",
-        "src": ""
-    },
-    {sdfsd
-        "name": "Raujesh Agrrawal",
-        "company": "Ashish Life Science",
-        "designation": "Director",
-        "src": ""
+      name: "Rajiv Arora",
+      company: "Amrapali Jewels Pvt Ltd",
+      designation: "Director",
+      src: "AMRAPALI JEWELS PVT LTD.jpg",
+      logo: "AMRAPALI JEWELS PVT LTD-logo.jpg",
     },
     {
-        "name": "Smita Naram",
-        "company": "Ayushakti Ayurved Pvt. Ltd.",
-        "designation": "Founder",
-        "src": ""
+      name: "Raujesh Agrrawal",
+      company: "Ashish Life Science",
+      designation: "Director",
+      src: "ASHISH LIFE SCIENCE.jpg",
+      logo: "ASHISH LIFE SCIENCE-logo.jpg",
     },
     {
-        "name": "Ketan C. Thakkar",
-        "company": "Balkrishna Textiles Private Limited",
-        "designation": "MD",
-        "src": ""
+      name: "Smita Naram",
+      company: "Ayushakti Ayurved Pvt. Ltd.",
+      designation: "Founder",
+      src: "AYUSHAKTI AYURVED PVT. LTD.jpg",
+      logo: "AYUSHAKTI AYURVED PVT. LTD-logo.jpg",
     },
     {
-        "name": "Sachin Mane",
-        "company": "Baramati Cattlefeeds Private Limited",
-        "designation": "MD",
-        "src": ""
+      name: "Ketan C. Thakkar",
+      company: "Balkrishna Textiles Private Limited",
+      designation: "MD",
+      src: "BALKRISHNA TEXTILES PRIVATE LIMITED.jpg",
+      logo: "BALKRISHNA TEXTILES PRIVATE LIMITED-logo.jpg",
     },
     {
-        "name": "Y. Srinivas Reddy",
-        "company": "Bevcon Wayors Pvt. Ltd.",
-        "designation": "Founder & MD",
-        "src": ""
+      name: "Sachin Mane",
+      company: "Baramati Cattlefeeds Private Limited",
+      designation: "MD",
+      src: "BARAMATI CATTLEFEEDS PRIVATE LIMITED.jpg",
+      logo: "BARAMATI CATTLEFEEDS PRIVATE LIMITED-logo.jpg",
     },
     {
-        "name": "Milan Dalal",
-        "company": "Bluecoat Pvt Ltd",
-        "designation": "MD",
-        "src": ""
+      name: "Y. Srinivas Reddy",
+      company: "Bevcon Wayors Pvt. Ltd.",
+      designation: "Founder & MD",
+      src: "BEVCON WAYORS PVT.LTD.jpg",
+      logo: "BEVCON WAYORS PVT.LTD-logo.jpg",
     },
     {
-        "name": "Gaurav Talwar",
-        "company": "Brilliant Polymers Pvt Ltd",
-        "designation": "MD",
-        "src": ""
+      name: "Milan Dalal",
+      company: "Bluecoat Pvt Ltd",
+      designation: "MD",
+      src: "BLUECOAT PVT LTD.jpg",
+      logo: "BLUECOAT PVT LTD-logo.jpg",
     },
     {
-        "name": "Deepak J. Vora",
-        "company": "Ceramic India",
-        "designation": "CEO",
-        "src": ""
+      name: "Gaurav Talwar",
+      company: "Brilliant Polymers Pvt Ltd",
+      designation: "MD",
+      src: "BRILLIANT POLYMERS PVT LTD.jpg",
+      logo: "BRILLIANT POLYMERS PVT LTD-logo.jpg",
     },
     {
-        "name": "Vinod Kumar Dutt",
-        "company": "Chanakya Dairy Products Ltd",
-        "designation": "MD",
-        "src": ""
+      name: "Deepak J. Vora",
+      company: "Ceramic India",
+      designation: "CEO",
+      src: "CERAMIC INDIA.jpg",
+      logo: "CERAMIC INDIA-logo.jpg",
     },
     {
-        "name": "Pawan Kumar Goel",
-        "company": "Chemical Resources (CHERESO)",
-        "designation": "Owner",
-        "src": ""
+      name: "Vinod Kumar Dutt",
+      company: "Chanakya Dairy Products Ltd",
+      designation: "MD",
+      src: "CHANAKYA DAIRY PRODUCTS LTD.jpg",
+      logo: "CHANAKYA DAIRY PRODUCTS LTD-logo.jpg",
     },
     {
-        "name": "Pankaj Zanwar",
-        "company": "CIAN Healthcare Ltd.",
-        "designation": "Director",
-        "src": ""
+      name: "Pawan Kumar Goel",
+      company: "Chemical Resources (CHERESO)",
+      designation: "Owner",
+      src: "CHEMICAL RESOURCES (CHERESO).jpg",
+      logo: "CHEMICAL RESOURCES (CHERESO)-logo.jpg",
     },
     {
-        "name": "Piyush Todi",
-        "company": "Coast Liners Pvt. Ltd.",
-        "designation": "Director",
-        "src": ""
+      name: "Pankaj Zanwar",
+      company: "CIAN Healthcare Ltd.",
+      designation: "Director",
+      src: "CIAN HEALTHCARE LTD.jpg",
+      logo: "CIAN HEALTHCARE LTD-logo.jpg",
     },
     {
-        "name": "Binod K Maheshwari",
-        "company": "Creative Polypack Ltd.",
-        "designation": "Director",
-        "src": ""
+      name: "Piyush Todi",
+      company: "Coast Liners Pvt. Ltd.",
+      designation: "Director",
+      src: "COAST LINERS PVT. LTD.jpg",
+      logo: "COAST LINERS PVT. LTD-logo.jpg",
     },
     {
-        "name": "Gaurav Jain",
-        "company": "DCP India Pvt. Ltd.",
-        "designation": "Director",
-        "src": ""
+      name: "Binod K Maheshwari",
+      company: "Creative Polypack Ltd.",
+      designation: "Director",
+      src: "CREATIVE POLYPACK LTD.jpg",
+      logo: "CREATIVE POLYPACK LTD-logo.jpg",
     },
     {
-        "name": "Sameer Patel",
-        "company": "Deal Global Fashions Pvt. Ltd.",
-        "designation": "Founder",
-        "src": ""
+      name: "Gaurav Jain",
+      company: "DCP India Pvt. Ltd.",
+      designation: "Director",
+      src: "DCP INDIA PVT. LTD..jpg",
+      logo: "DCP INDIA PVT. LTD.-logo.jpg",
     },
     {
-        "name": "Rajiv Jain",
-        "company": "Deesha Trade Endeavours Pvt. Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "Sameer Patel",
+      company: "Deal Global Fashions Pvt. Ltd.",
+      designation: "Founder",
+      src: "DEAL GLOBAL FASHIONS PVT. LTD..jpg",
+      logo: "DEAL GLOBAL FASHIONS PVT. LTD.-logo.jpg",
     },
     {
-        "name": "Devaraya M. Sheregar",
-        "company": "Devu Tools Pvt. Ltd.",
-        "designation": "Chairman and MD",
-        "src": ""
+      name: "Rajiv Jain",
+      company: "Deesha Trade Endeavours Pvt. Ltd.",
+      designation: "MD",
+      src: "DEESHA TRADE ENDEAVOURS PVT. LTD..jpg",
+      logo: "DEESHA TRADE ENDEAVOURS PVT. LTD-logo.jpg",
     },
     {
-        "name": "A.R. Sabharwal",
-        "company": "Dr. Sabharwal's Manufacturing Labs Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "Devaraya M. Sheregar",
+      company: "Devu Tools Pvt. Ltd.",
+      designation: "Chairman and MD",
+      src: "DEVU TOOLS PVT. LTD..jpg",
+      logo: "DEVU TOOLS PVT. LTD-logo.jpg",
     },
     {
-        "name": "P. Sam Prasad",
-        "company": "Eagle Press Pvt. Ltd.",
-        "designation": "Director",
-        "src": ""
+      name: "A.R. Sabharwal",
+      company: "Dr. Sabharwal's Manufacturing Labs Ltd.",
+      designation: "MD",
+      src: "DR.SABHARWAL'S MANUFACTURING LABS LTD-logo.jpg",
+      logo: "DR.SABHARWAL'S MANUFACTURING LABS LTD..jpg",
     },
     {
-        "name": "Krishna Kumar",
-        "company": "Eggway International Asia Pvt. Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "P. Sam Prasad",
+      company: "Eagle Press Pvt. Ltd.",
+      designation: "Director",
+      src: "EAGLE PRESS PVT. LTD..jpg",
+      logo: "EAGLE PRESS PVT. LTD.-logo.jpg",
     },
     {
-        "name": "Kamal Sethia",
-        "company": "Elin Appliances Pvt Ltd",
-        "designation": "Director",
-        "src": ""
+      name: "Krishna Kumar",
+      company: "Eggway International Asia Pvt. Ltd.",
+      designation: "MD",
+      src: "EGGWAY INTERNATIONAL ASIA PVT. LTD..jpg",
+      logo: "EGGWAY INTERNATIONAL ASIA PVT. LTD-logo.jpg",
     },
     {
-        "name": "Makrand Appalwar",
-        "company": "Emmbi Industries Limited",
-        "designation": "Chairman & MD",
-        "src": ""
+      name: "Kamal Sethia",
+      company: "Elin Appliances Pvt Ltd",
+      designation: "Director",
+      src: "ELIN APPLIANCES PVT LTD.jpg",
+      logo: "ELIN APPLIANCES PVT LTD-logo.jpg",
     },
     {
-        "name": "Sarita Sarvaria",
-        "company": "Express Housekeepers",
-        "designation": "MD",
-        "src": ""
+      name: "Makrand Appalwar",
+      company: "Emmbi Industries Limited",
+      designation: "Chairman & MD",
+      src: "EMMBI INDUSTRIES LIMITED.jpg",
+      logo: "EMMBI INDUSTRIES LIMITED-logo.jpg",
     },
     {
-        "name": "Naresh Kumar Gupta",
-        "company": "Fun Zoo Toys (India)",
-        "designation": "Proprietor",
-        "src": ""
+      name: "Sarita Sarvaria",
+      company: "Express Housekeepers",
+      designation: "MD",
+      src: "EXPRESS HOUSEKEEPERS.jpg",
+      logo: "EXPRESS HOUSEKEEPERS-logo.jpg",
     },
     {
-        "name": "Arun Prakash",
-        "company": "Genetix Biotech Asia Pvt. Ltd.",
-        "designation": "CEO",
-        "src": ""
+      name: "Naresh Kumar Gupta",
+      company: "Fun Zoo Toys (India)",
+      designation: "Proprietor",
+      src: "FUN ZOO TOYS (INDIA).jpg",
+      logo: "FUN ZOO TOYS (INDIA)-logo.jpg",
     },
     {
-        "name": "Sanjiv Gupta",
-        "company": "Global Advertisers",
-        "designation": "Proprietor",
-        "src": ""
+      name: "Arun Prakash",
+      company: "Genetix Biotech Asia Pvt. Ltd.",
+      designation: "CEO",
+      src: "GENETIX BIOTECH ASIA PVT.LTD..jpg",
+      logo: "GENETIX BIOTECH ASIA PVT.LTD-logo.jpg",
     },
     {
-        "name": "Suresh Bherwani",
-        "company": "Global Energy Food India Pvt. Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "Sanjiv Gupta",
+      company: "Global Advertisers",
+      designation: "Proprietor",
+      src: "GLOBAL ADVERTISERS.jpg",
+      logo: "GLOBAL ADVERTISERS-logo.jpg",
     },
     {
-        "name": "Rajiv Mitra",
-        "company": "Govind Milk & Milk Products Pvt. Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "Suresh Bherwani",
+      company: "Global Energy Food India Pvt. Ltd.",
+      designation: "MD",
+      src: "GLOBAL ENERGY FOOD INDIA PVT. LTD..jpg",
+      logo: "GLOBAL ENERGY FOOD INDIA PVT. LTD-logo.jpg",
     },
     {
-        "name": "Rajat Agrawal",
-        "company": "Gravita India Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "Rajiv Mitra",
+      company: "Govind Milk & Milk Products Pvt. Ltd.",
+      designation: "MD",
+      src: "GOVIND MILK & MILK PRODUCTS PVT. LTD..jpg",
+      logo: "GOVIND MILK & MILK PRODUCTS PVT. LTD-logo.jpg",
     },
     {
-        "name": "Anil Kumar",
-        "company": "Great Sports Infra Pvt. Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "Rajat Agrawal",
+      company: "Gravita India Ltd.",
+      designation: "MD",
+      src: "GRAVITA INDIA LTD..jpg",
+      logo: "GRAVITA INDIA LTD-logo.jpg",
     },
     {
-        "name": "Milind Kelkar",
-        "company": "Grind Master Machines Pvt. Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "Anil Kumar",
+      company: "Great Sports Infra Pvt. Ltd.",
+      designation: "MD",
+      src: "GREAT SPORTS INFRA PVT. LTD..jpg",
+      logo: "GREAT SPORTS INFRA PVT. LTD-logo.jpg",
     },
     {
-        "name": "Dilip Dev",
-        "company": "H.D. Wires Pvt. Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "Milind Kelkar",
+      company: "Grind Master Machines Pvt. Ltd.",
+      designation: "MD",
+      src: "GRIND MASTER MACHINES PVT. LTD..jpg",
+      logo: "GRIND MASTER MACHINES PVT. LTD-logo.jpg",
     },
     {
-        "name": "Ghanshyam D. Dholakia",
-        "company": "H.K. Jewels Pvt. Ltd.",
-        "designation": "MD",
-        "src": ""
+      name: "Dilip Dev",
+      company: "H.D. Wires Pvt. Ltd.",
+      designation: "MD",
+      src: "H.D.WIRES PVT. LTD..jpg",
+      logo: "H.D.WIRES PVT. LTD-logo.jpg",
     },
     {
-        "name": "Arun Kelkar",
-        "company": "Hexagon Nutrition Pvt. Ltd.",
-        "designation": "Chairman & MD",
-        "src": ""
+      name: "Ghanshyam D. Dholakia",
+      company: "H.K. Jewels Pvt. Ltd.",
+      designation: "MD",
+      src: "H.K.JEWELS PVT. LTD..jpg",
+      logo: "H.K.JEWELS PVT. LTD-logo.jpg",
     },
     {
-        "name": "Nitin Mane",
-        "company": "Hindustan Feeds Mfg. Co.",
-        "designation": "Managing Partner",
-        "src": ""
+      name: "Arun Kelkar",
+      company: "Hexagon Nutrition Pvt. Ltd.",
+      designation: "Chairman & MD",
+      src: "HEXAGON NUTRITION PVT. LTD..jpg",
+      logo: "HEXAGON NUTRITION PVT. LTD-logo.jpg",
     },
     {
-        "name": "Musthafa P.C.",
-        "company": "ID Fresh Food India Pvt. Ltd.",
-        "designation": "CEO & Founder",
-        "src": ""
+      name: "Nitin Mane",
+      company: "Hindustan Feeds Mfg. Co.",
+      designation: "Managing Partner",
+      src: "HINDUSTAN FEEDS MFG. CO..jpg",
+      logo: "HINDUSTAN FEEDS MFG. CO-logo.jpg",
     },
     {
-        "name": "Satyendra Johari",
-        "company": "Johari Digital Healthcare Ltd.",
-        "designation": "Chairman and MD",
-        "src": ""
-    }
-]
+      name: "Musthafa P.C.",
+      company: "ID Fresh Food India Pvt. Ltd.",
+      designation: "CEO & Founder",
+      src: "ID FRESH FOOD INDIA PVT. LTD..jpg",
+      logo: "ID FRESH FOOD INDIA PVT. LTD-logo.jpg",
+    },
+    {
+      name: "Satyendra Johari",
+      company: "Johari Digital Healthcare Ltd.",
+      designation: "Chairman and MD",
+      src: "JOHARI DIGITAL HEALTHCARE LTD.jpg",
+      logo: "JOHARI DIGITAL HEALTHCARE LTD-logo.jpg",
+    },
+  ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === members.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 3000);
+    if (currentIndex < members.length - 1) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+      }, 5000);
 
-    return () => clearInterval(interval);
-  }, [members.length]);
+      return () => clearInterval(interval);
+    }
+  }, [currentIndex, members.length]);
 
   const scroll = (direction) => {
-    if (direction === 'left') {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === 0 ? members.length - 1 : prevIndex - 1
-      );
-    } else {
-      setCurrentIndex((prevIndex) => 
-        prevIndex === members.length - 1 ? 0 : prevIndex + 1
-      );
-    }
+    setCurrentIndex((prevIndex) => {
+      if (direction === "left") {
+        return Math.max(prevIndex - 1, 0); // Prevent scrolling beyond first element
+      } else {
+        return Math.min(prevIndex + 1, members.length - 6); // Prevent scrolling beyond last element
+      }
+    });
+  };
+  const calculateTransform = () => {
+    const cardWidth = 180; // Width of a single card
+    return `translateX(-${currentIndex * cardWidth}px)`;
   };
 
   return (
-    <div className="w-full relative">
-      <div className="carousel w-full py-8">
-        <div className="flex transition-transform duration-500 ease-in-out"
-             style={{ transform: `translateX(-${currentIndex * 384}px)` }}>
+    <div className="w-full 2xl:px-40  relative overflow-x-hidden">
+      <div className="carousel  w-full py-8 overflow-x-scroll ">
+        <div
+          className="flex cursor-pointer transition-transform duration-500 ease-in-out "
+          style={{ transform: calculateTransform() }}
+        >
           {members.map((member, index) => (
             <MemberCard key={index} {...member} />
           ))}
         </div>
       </div>
-      
-      <button 
-        onClick={() => scroll('left')}
+
+      <button
+        onClick={() => scroll("left")}
         className="btn btn-circle absolute left-2 top-1/2 transform -translate-y-1/2"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
-      
-      <button 
-        onClick={() => scroll('right')}
+
+      <button
+        onClick={() => scroll("right")}
         className="btn btn-circle absolute right-2 top-1/2 transform -translate-y-1/2"
       >
         <ChevronRight className="w-6 h-6" />

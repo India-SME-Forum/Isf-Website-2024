@@ -1,11 +1,18 @@
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 import { navbarFetch } from "../services/navbarFetch";
+import { useQuery } from "@tanstack/react-query";
 
 
-const categoriesArray = await navbarFetch() || []
+// const categoriesArray = await navbarFetch() || []
 
 const Navbar = () => {
+const {data,isError,isLoading,isFetched,refetch,error} = useQuery({
+  queryKey:['list-navbar'],
+  queryFn:navbarFetch
+})
+
+const categoriesArray = data || [];
 
   const [mobNavOpen, setMobNav] = useState(false);
   const navRef = useRef(null);
@@ -41,8 +48,8 @@ const Navbar = () => {
             className="group/category rounded-lg hover:bg-accent relative"
           >
             <a href={category?.url}>{category?.category}</a>
-            <ul
-              className="absolute ml-[190px]   opacity-0 invisible 
+       {category.subcategories[0]&&(     <ul
+              className="absolute ml-[190px] opacity-0 invisible 
                            group-hover/category:opacity-100 group-hover/category:visible 
                            transition-all duration-300 
                            bg-base-100 rounded-box p-2 shadow-lg z-10"
@@ -52,14 +59,18 @@ const Navbar = () => {
                   <a href={subCat?.url}>{subCat?.category}</a>
                 </li>
               ))}
-            </ul>
+            </ul>)}
           </li>
         );
       }
     });
   };
+  
+  
 
   return (
+    <div>
+      {isLoading && (<div>Loading...</div>)}
     <div
       ref={navRef}
       className="navbar z-50 2xl:px-40 2xl:py-2 p-0 bg-base-100 shadow-xl">
@@ -85,7 +96,7 @@ const Navbar = () => {
             </svg>
           </label>
 
-          {mobNavOpen && (
+          {mobNavOpen  && (
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content mt-3 z-50 p-2 shadow bg-base-100 rounded-box w-96"
@@ -121,7 +132,7 @@ const Navbar = () => {
 
       <div className="navbar-center h-full hidden lg:flex">
         <ul className="menu menu-horizontal  h-full px-1">
-          {categoriesArray?.map((section, index) => (
+          {isFetched && categoriesArray?.map((section, index) => (
             <li
               key={index}
               className="group relative h-full mx-[2px] my-[5px] "
@@ -161,10 +172,11 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-end z-10">
-        <a className="btn bg-gradient-to-r hover:border-cyan-800 from-teal-100 to-blue-400 hover:from-blue-400 hover:to-teal-100 font-semibold scale-90 ">
+        <a className="btn hover:bg-accent  hover:text-black 500 btn-outline btn-xs md:btn-md 2xl:btn-md backdrop-blur-sm shadow-xl">
           Member Portal
         </a>
       </div>
+    </div>
     </div>
   );
 };
