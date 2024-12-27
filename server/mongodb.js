@@ -8,6 +8,5 @@ export const connectDB = asyncHnadler(async (req, res) => {
         console.log(`MongoDB Connected: ${conn.connection.host} in ${process.env.NODE_ENV} mode`);
     } catch (error) {
         console.log(`Error: ${error.message}`);
-        
     }
 })   
