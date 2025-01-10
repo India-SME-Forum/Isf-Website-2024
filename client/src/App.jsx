@@ -1,13 +1,37 @@
-import "./App.css";
+import React, { Suspense } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MemeberDirectory from "./pages/MemeberDirectory";
 import Navbar from "./components/navbar";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import IntroVideo from "./components/IntroVideo";
 
-import Homepage from "./pages/Homepage";
+const ErrorPage = React.lazy(() => import("./components/ErrorPage"));
+const Homepage = React.lazy(() => import("./pages/Homepage"));
+
 function App() {
   return (
-    <div>
-      <Homepage />
-    </div>
+    <BrowserRouter>
+      <Suspense
+        fallback={
+          <div className="flex flex-col h-[100vh]  items-center justify-center ">
+            <span className="loading  loading-infinity loading-lg"></span>
+          </div>
+        }
+      >
+        <Navbar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <IntroVideo>
+                <Homepage />
+              </IntroVideo>
+            }
+          />
+          <Route path="/member-directory" element={<MemeberDirectory />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 

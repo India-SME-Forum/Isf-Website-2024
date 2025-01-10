@@ -16,9 +16,9 @@ const MembershipBanner = () => {
       description:
         "From emerging startups to established businesses, explore the wide range of advantages and plans tailored to your needs.",
       icon: <User className="w-8 h-8" />,
-      bgtColor: "text-gray-700",
-      hovColor: "bg-slate-200",
-      texerBg: "hover:bg-slate-300",
+      bgColor: "text-gray-700",
+      textColor: "bg-slate-200",
+      hoverBg: "hover:bg-slate-300",
     },
     {
       title: "Member Directory",
@@ -27,6 +27,7 @@ const MembershipBanner = () => {
       bgColor: "bg-amber-500",
       textColor: "text-white",
       hoverBg: "hover:bg-amber-600",
+      url:"/member-directory"
     },
     {
       title: "Events",
@@ -39,21 +40,23 @@ const MembershipBanner = () => {
   ];
 
   return (
-    <div className="max-w-full my-5 2xl:px-40 mx-auto p-4">
-      <div className="flex  items-baseline gap-2">
-        <h1 className="text-2xl  mb-4">Membership Program</h1>
-        <Users className="w-8 h-8" /> 
-      </div>
-
+    <div className=" max-w-full  my-5 2xl:px-44 mx-auto p-4">
+      {/* <div className="flex  items-baseline gap-2">
+        <h1 className="text-2xl text-white    mb-4">Membership Program</h1>
+        <Users className="w-8 text-white h-8" /> 
+      </div> */}
+      
       <div className="grid grid-cols-1 md:grid-cols-4 gap-0 rounded-lg overflow-hidden shadow-xl">
         {sections.map((section, index) => (
           <div
             key={index}
+        
             className={`${section.bgColor} ${section.textColor} ${section.hoverBg} 
               p-6 transition-all duration-300 ease-in-out cursor-pointer
-              transform hover:-translate-y-1 hover:shadow-lg
+              transform hover:-translate-y-1 hover:shadow-lg 
               group relative`}
           >
+            <a href={section.url}>
             <div className="flex flex-col space-y-4">
               <div className="flex items-center justify-center md:justify-start">
                 <div className="transition-transform duration-300 group-hover:scale-110">
@@ -74,6 +77,7 @@ const MembershipBanner = () => {
             <div className="absolute bottom-0 left-0 w-full">
               <div className="h-0.5 bg-current transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
             </div>
+            </a>
           </div>
         ))}
       </div>

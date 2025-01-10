@@ -5,7 +5,7 @@ export const navbarFetch = async () => {
   try {
     const res = await axios.get(`${BASE_URL}/api/v1/categories/fetch`);
     console.log("response:", res.data);
-    return res.data;
+    return res.data || [];
   } catch (e) { 
     console.log("error: ", e);
   }

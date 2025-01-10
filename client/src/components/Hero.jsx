@@ -8,13 +8,19 @@ const Hero = () => {
     { imgSrc: "banners/ban1.jpg", url: "https://indiasme100.com/" },
     { imgSrc: "banners/ban2.jpg", url: "https://indiasmeforum.org/afl-2024/" },
     { imgSrc: "banners/ban3.jpg", url: "https://indiaxports.com/" },
-    { imgSrc: "banners/ban4.jpg", url: "https://womenentrepreneursforum.org/wep2/" },
-    { imgSrc: "banners/ban6.jpg", url: "https://indiasmeforum.org/sashaktikaran/index.php",},
+    {
+      imgSrc: "banners/ban4.jpg",
+      url: "https://womenentrepreneursforum.org/wep2/",
+    },
+    {
+      imgSrc: "banners/ban6.jpg",
+      url: "https://indiasmeforum.org/sashaktikaran/index.php",
+    },
   ];
 
   return (
     <div className="z-0 ">
-      <div className="flex flex-col  sm:flex-row 2xl:px-40">
+      <div className="2xl:px-40">
         {/*carousel  banner */}
         {/* <div className="carousel  animate-scroll overflow-x-visible h-[400px] 2xl:px-20  w-full ">
           {items.map((img, index) => {
@@ -27,25 +33,17 @@ const Hero = () => {
           })} 
         </div>
   */}
-        <CarouselScroll banners={bannerImg} />
+        {/* <CarouselScroll banners={bannerImg} /> */}
 
         {/* banner content */}
-        <div className="bg-sky-400 md:w-[65%] z-0 glass banner-content sm:w-[90%] ">
-          <div className="   w-full h-full flex flex-col items-center justify-center">
-            <div>
-              <h1 className=" text-xl md:text-2xl 2xl:text-4xl font-inter text-center ">
-                Welcome To India's Largest
-                <br />
-                Non Profit Organisation
-                <br /> For MSME
-              </h1>
-            </div>
-            <div className="duration-200 transition-all  mb-5 2xl:mb-10 rounded-md mt-5">
-              <p className="btn btn-outline btn-xs md:btn-md 2xl:btn-md backdrop-blur-sm shadow-xl  ">
-                Msme Support
-              </p>
-            </div>
-          </div>
+        <div className=" relative md:h-[400px] md:w-[100%] z-0 sm:w-[100%] ">
+          <p className="z-30 absolute w-[70%] text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl  2xl:text-3xl font-extrabold">
+          Empowering Growth,Driving Success <br/> <span className=" md:text-4xl 2xl:text-5xl">India’s Largest Not-for-Profit Organisation for MSMEs</span>
+          </p>
+          <img
+            src="banners/ban1.jpg"
+            className="object-cover w-full md:h-[500px] 2xl:h-[500px] items-center"
+          ></img>
         </div>
       </div>
     </div>

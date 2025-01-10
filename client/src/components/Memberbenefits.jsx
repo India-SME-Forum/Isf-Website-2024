@@ -2,8 +2,8 @@ import React from "react";
 
 const MembershipBenefits = () => {
   return (
-    <div className="bg-base-300 py-10 px-4 md:px-10 text-center shadow-lg rounded-lg border border-gray-200">
-      <h2 className="text-4xl    mb-4">
+    <div className="absolute bg-base-300 py-10 px-4 md:px-10 text-center shadow-lg rounded-lg border border-gray-200">
+      <h2 className="text-4xl   mb-4">
         MEMBERSHIP HAS ITS BENEFITS
       </h2>
       <p className="text-lg text-gray-600 mb-6">

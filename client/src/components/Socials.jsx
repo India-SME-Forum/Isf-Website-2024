@@ -17,7 +17,7 @@ const SocialMediaBanner = () => {
   ];
 
   return (
-    <div className="bg-gray-800 z-30  py-4 px-6  shadow-md">
+    <div className="bg-cyan-800 z-30  py-4 px-6  shadow-md">
       <h2 className="text-2xl text-base-300 text-center  mb-6">
         Connect on Social Media
       </h2>
