@@ -22,9 +22,9 @@ function App() {
           <Route
             path="/"
             element={
-              <IntroVideo>
+              // <IntroVideo>
                 <Homepage />
-              </IntroVideo>
+              // </IntroVideo>
             }
           />
           <Route path="/member-directory" element={<MemeberDirectory />} />

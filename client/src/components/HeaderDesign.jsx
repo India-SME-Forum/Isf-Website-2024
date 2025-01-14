@@ -28,7 +28,7 @@ const HeaderDesign = ({title,Logo}) => {
           <div className="bg-white/20 p-4 rounded-full backdrop-blur-sm animate-bounce-in opacity-0 [animation-delay:600ms] animate-fill-forwards">
             <Logo className="w-8 h-8 md:w-12 md:h-12 text-white animate-pulse" />
           </div>
-        </div>
+        </div> 
         
         {/* Decorative element */}
         <div className="absolute bottom-0 right-0 transform translate-y-1/2 translate-x-1/4">
