@@ -16,7 +16,7 @@ const corsOptions = {
   }
 app.use(express.json())
 const _dirname = path.dirname("")
-const buildpath = path.join(_dirname, '../client/build')
+const buildpath = path.join(_dirname, '../client/dist')
 app.use(express.static(buildpath))
 app.use(cors())
 app.use('/api/v1/categories',catRouter)
