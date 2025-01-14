@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MemeberDirectory from "./pages/MemeberDirectory";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import IntroVideo from "./components/IntroVideo";
 
 const ErrorPage = React.lazy(() => import("./components/ErrorPage"));
@@ -23,7 +23,7 @@ function App() {
             path="/"
             element={
               // <IntroVideo>
-                <Homepage />
+              <Homepage />
               // </IntroVideo>
             }
           />
