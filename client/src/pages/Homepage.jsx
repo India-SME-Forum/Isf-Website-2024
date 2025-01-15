@@ -29,10 +29,7 @@ const PartnerCarousel = React.lazy(() => import("../components/Partners"));
 
 const Homepage = () => {
   return (
-    <div className="overflow-x-hidden">
-     
-     
-      
+    <div className="overflow-x-hidden">        
         <Hero />
         <MembershipBanner />
         <MembershipStats />
