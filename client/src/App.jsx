@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MemeberDirectory from "./pages/MemeberDirectory";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/NavBar";
 import IntroVideo from "./components/IntroVideo";
 
 const ErrorPage = React.lazy(() => import("./components/ErrorPage"));
