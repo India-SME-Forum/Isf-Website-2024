@@ -4,21 +4,21 @@ import cors from 'cors'
 import { connectDB } from './mongodb.js';
 import catRouter from './routes/categoryRoutes.js';
 import { errorHandler } from './middleware/errorHandler.js';
-import path from 'path'
+import path from 'path';
  
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT  
 const app = express()
 
 const corsOptions = {
-    origin: [process.env.FRONTEND_URL,],
+    origin: ['http://localhost:5174'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'], //access-control-allow-credentials:true
     allowedHeaders: ['Content-Type', 'Authorization'],
   }
-
+                                       
 app.use(express.json())
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use('/api/v1/categories',catRouter)
 app.use(errorHandler)
 // mongo db connection
