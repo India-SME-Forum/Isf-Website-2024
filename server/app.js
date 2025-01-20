@@ -1,28 +1,28 @@
-import 'dotenv/config'
+import "dotenv/config";
 import express from "express";
-import cors from 'cors'
-import { connectDB } from './mongodb.js';
-import catRouter from './routes/categoryRoutes.js';
-import { errorHandler } from './middleware/errorHandler.js';
-import path from 'path';
- 
-const PORT = process.env.PORT  
-const app = express()
+import cors from "cors";
+import { connectDB } from "./mongodb.js";
+import catRouter from "./routes/categoryRoutes.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+import path from "path";
+
+const PORT = process.env.PORT;
+const app = express();
 
 const corsOptions = {
-    origin: ['http://localhost:5174'],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], //access-control-allow-credentials:true
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  }
-                                       
-app.use(express.json())
+  origin: [process.env.FRONTEND_URL],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"], //access-control-allow-credentials:true
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
 
-app.use(cors(corsOptions))
-app.use('/api/v1/categories',catRouter)
-app.use(errorHandler)
+app.use(express.json());
+
+app.use(cors(corsOptions));
+app.use("/api/v1/categories", catRouter);
+app.use(errorHandler);
 // mongo db connection
-connectDB()
-app.listen(PORT,  async () => {
+connectDB();
+app.listen(PORT, async () => {
   console.log(`Server running at  ${PORT} in ${process.env.NODE_ENV} mode`);
 });
