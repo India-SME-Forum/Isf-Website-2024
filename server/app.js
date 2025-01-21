@@ -10,7 +10,7 @@ const PORT = process.env.PORT;
 const app = express();
 
 const corsOptions = {
-  origin: ['*'],
+  origin: [process.env.FRONTEND_URL,'http://localhost:3000', process.env.ORIGINAL],
   credentials: false,
   methods: ["GET", "POST", "PUT", "DELETE"], //access-control-allow-credentials:true
   allowedHeaders: ["Content-Type", "Authorization"],
@@ -18,7 +18,7 @@ const corsOptions = {
 
 app.use(express.json());
 
-app.use(cors( corsOptions));
+app.use(cors( ));
 // app.use('/' , express.static(path.join(__dirname, '../client/dist')))
 app.use("/api/v1/categories", catRouter);
 app.use(errorHandler);
