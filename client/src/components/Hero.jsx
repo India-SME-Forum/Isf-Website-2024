@@ -37,8 +37,11 @@ const Hero = () => {
 
         {/* banner content */}
         <div className=" relative md:h-[400px] md:w-[100%] z-0 sm:w-[100%] ">
-          <p className="z-30 absolute w-[70%] text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl  2xl:text-3xl font-extrabold">
-          Empowering Growth,Driving Success <br/> <span className=" md:text-4xl 2xl:text-5xl">India’s Largest Not-for-Profit Organisation for MSMEs</span>
+          <p className="z-30 absolute w-[100%] md:w-[70%] text-center  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-lg md:text-4xl 2xl:text-3xl font-extrabold">
+            Empowering Growth,Driving Success <br />{" "}
+            <span className=" md:text-4xl 2xl:text-5xl">
+              India’s Largest Not-for-Profit Organisation for MSMEs
+            </span>
           </p>
           <img
             src="banners/ban1.jpg"
